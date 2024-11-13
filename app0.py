@@ -24,7 +24,7 @@ class Chatbot:
         self.text_area.configure(state="disabled")  # Apenas leitura na área de texto
 
         # Campo de entrada
-        self.entry = ctk.CTkEntry(master, width=400, placeholder_text="Digite o nome do aluno...")
+        self.entry = ctk.CTkEntry(master, width=400, placeholder_text="Digite o nome da Linha...")
         self.entry.grid(row=1, column=0, padx=20, pady=10, sticky="ew")
         self.entry.bind("<Return>", self.process_input)
 
@@ -52,20 +52,20 @@ class Chatbot:
     def get_response(self, user_input):
         # Consultar a tabela do Google Sheets
         try:
-            response = requests.get("https://docs.google.com/spreadsheets/d/e/2PACX-1vSeRkcpQPm5eGkRh94-9tOyKBJ-1we50lvqHqIo_tnP3ZrwgbXZVQITq2pk671MNsYyurqZLUgCcpK-/pubhtml")
+            response = requests.get("https://docs.google.com/spreadsheets/d/e/2PACX-1vSgcmld5qq1852xslEl8jfAGk6MemNnZLZaDhTYSG6lOuwnwT_plGWTUts-P8NtjG8s1NjZb4ouituj/pubhtml")
             if response.status_code == 200:
                 soup = BeautifulSoup(response.text, 'html.parser')
                 rows = soup.find_all('tr')
 #########################################################################
-                # Procurar o nome do aluno na tabela
+                # Procurar a linha de ônibus na tabela
                 for row in rows[1:]:  # Pular o cabeçalho
                     cells = row.find_all('td')
-                    nome = cells[0].get_text().strip()
-                    if nome.lower() == user_input.lower():
-                        media = cells[1].get_text().strip()
-                        conceito = cells[2].get_text().strip()
-                        return f"Aluno: {nome}, Média: {media}, Conceito: {conceito}"
-                return "Aluno não encontrado. Por favor, verifique o nome e tente novamente."
+                    nome_linha = cells[0].get_text().strip()
+                if nome_linha.lower() == user_input.lower():
+                    numero_linha = cells[1].get_text().strip()
+                    bairro_origem = cells[2].get_text().strip()
+                    return f"Nome da linha: {nome_linha}, Número da linha: {numero_linha}, Bairro de origem: {bairro_origem}"
+                return "Linha de ônibus não encontrada. Por favor, verifique o nome e tente novamente."
             else:
                 return "Desculpe, não consegui acessar a tabela no momento."
         except requests.exceptions.RequestException as e:
