@@ -5,8 +5,9 @@ from bs4 import BeautifulSoup
 class Chatbot:
     def __init__(self, master):
         self.master = master
-        master.title("Artemis")
+        master.title("Ubus")
         master.geometry("600x500")
+        master.iconbitmap("bus.ico")
 
         # Configuração da janela
         master.grid_columnconfigure(0, weight=1)
