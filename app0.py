@@ -21,7 +21,7 @@ class Chatbot:
         # Área de texto
         self.text_area = ctk.CTkTextbox(master, width=500, height=300, wrap="word")
         self.text_area.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
-        self.text_area.insert(ctk.END, "Olá! Eu sou a Artemis, sua assistente virtual. Como posso te ajudar hoje?\n")
+        self.text_area.insert(ctk.END, "Olá! Para buscar informações sobre a linha, digite o número\n")
         self.text_area.configure(state="disabled")  # Apenas leitura na área de texto
 
         # Campo de entrada
@@ -46,7 +46,7 @@ class Chatbot:
         response = self.get_response(user_input)
 
         self.text_area.configure(state="normal")
-        self.text_area.insert(ctk.END, "Artemis: " + response + "\n")
+        self.text_area.insert(ctk.END, "Ubus: " + response + "\n")
         self.text_area.configure(state="disabled")
         self.entry.delete(0, ctk.END)
 ########################################################################
